@@ -78,44 +78,6 @@ app.get("/contact", function(req, res){
 });
 
 
-// mail api
-
-app.post("/contact", function (req, res) {
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: "hammadbabar1700@gmail.com", // this should be YOUR GMAIL account
-      pass: "eflznqqgvhdxdpdv", // this should be your password
-    },
-  });
-  var textBody = `FROM: ${req.body.name} EMAIL: ${req.body.email} Message: ${req.body.message} `;
-  var htmlBody = `<h2> Mail From  Campsite </h2><p>from:<a href="mailto:${req.body.email}">${req.body.email}</a></p><h3>NAME:</h3><p>${req.body.name}</p><h3>Message:</h3><p>${req.body.message}</p>`;
-  var mail = {
-    from: "hammadbabar1700@gmail.com", // sender address
-    to: "hammadbabar1700@gmail.com", // list of receivers (THIS COULD BE A DIFFERENT ADDRESS or ADDRESSES SEPARATED BY COMMAS)
-    subject: "Mail From Booking Campground Customer ", // Subject line
-    text: textBody,
-    html: htmlBody,
-  };
-  transporter.sendMail(mail, function (err, info) {
-    if (err) {
-      console.log(err);
-      res.json({
-        message:
-          "message not sent: an error occured; check the server's console log",
-      });
-    } else {
-      //res.json({ message: `message sent: ${info.messageId}`});
-      res.redirect("/");
-      //res.send(prompt("we receive your email,please wait for our reponse.we send you confirmation mail."))
-    }
-  });
-});
-app.get("/contact.ejs", function (req, res) {
-  res.render("contact.ejs");
-});
 
 
 app.listen(3000, function() {
